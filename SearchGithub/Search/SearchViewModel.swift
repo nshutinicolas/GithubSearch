@@ -9,39 +9,17 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-struct UserModel: Identifiable, Decodable {
-    let id: Int
-    let name: String?
-    let login: String
-    let bio: String?
-    let avatarUrl: String
-    let url: String
-    let followersUrl: String
-    let followingUrl: String
-    let reposUrl: String
-    let followers: Int?
-    let following: Int?
-    let publicRepos: Int?
-    let publicGists: Int?
-}
-
-struct GitResponse: Decodable {
-    let totalCount: Int
-    let incompleteResults: Bool
-    let items: [UserModel]
-}
-
 // Temporary implementation
 protocol SearchViewModelDelegate {
-    func updateSearchResults(_ results: [UserModel])
+    func updateSearchResults(_ results: [GitUserModel])
 }
 
 class SearchViewModel {
     private let networkManager = NetworkManager()
     
-    var searchResults = BehaviorRelay(value: [UserModel]())
+    var searchResults = BehaviorRelay(value: [GitUserModel]())
     var searchText = BehaviorSubject(value: "")
-    var selectedUser = PublishSubject<UserModel>()
+    var selectedUser = PublishSubject<GitUserModel>()
     init() {
         
     }

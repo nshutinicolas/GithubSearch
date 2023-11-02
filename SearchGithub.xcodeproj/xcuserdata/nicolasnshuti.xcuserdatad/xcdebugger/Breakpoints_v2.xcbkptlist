@@ -14,9 +14,9 @@
             filePath = "SearchGithub/SearchResults/SearchResultsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "bindViewModel()"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "bindViewModelMethods()"
             landmarkType = "7">
             <Locations>
                <Location
@@ -62,8 +62,8 @@
             filePath = "SearchGithub/Search/SearchViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
             landmarkName = "searchGithubUser(named:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,8 +78,8 @@
             filePath = "SearchGithub/SearchResults/SearchResultsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
             landmarkName = "bindTableViewController()"
             landmarkType = "7">
          </BreakpointContent>
@@ -94,10 +94,58 @@
             filePath = "SearchGithub/Search/SearchViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
             landmarkName = "bindSearchResultsViewModel()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3FC6A0FF-3948-4A23-8942-CD88C4BC2821"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SearchGithub/Search/SearchViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "181"
+            endingLineNumber = "181"
+            landmarkName = "bindSearchTextField()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "3FC6A0FF-3948-4A23-8942-CD88C4BC2821 - 69df85071d591347"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 () -&gt; () in SearchGithub.SearchViewController.bindSearchTextField() -&gt; ()"
+                  moduleName = "SearchGithub"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nicolasnshuti/Desktop/UIKit/SearchGithub/SearchGithub/Search/SearchViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "128"
+                  endingLineNumber = "128"
+                  offsetFromSymbolStart = "142">
+               </Location>
+               <Location
+                  uuid = "3FC6A0FF-3948-4A23-8942-CD88C4BC2821 - 69df85071d591347"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 () -&gt; () in SearchGithub.SearchViewController.bindSearchTextField() -&gt; ()"
+                  moduleName = "SearchGithub"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nicolasnshuti/Desktop/UIKit/SearchGithub/SearchGithub/Search/SearchViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "128"
+                  endingLineNumber = "128"
+                  offsetFromSymbolStart = "136">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -41,14 +41,19 @@ class RemoteImage: UIImageView {
         }
     }
     private func addSpinner(){
-        addSubview(activityIndicator)
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        
-        activityIndicator.startAnimating()
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.addSubview(activityIndicator)
+            self.activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+            self.activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+            self.activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+            self.activityIndicator.startAnimating()
+        }
     }
     private func removeSpinner() {
-        activityIndicator.removeFromSuperview()
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.activityIndicator.removeFromSuperview()
+        }
     }
 }

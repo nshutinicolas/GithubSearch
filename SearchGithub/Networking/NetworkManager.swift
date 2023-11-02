@@ -18,7 +18,6 @@ extension URLSession: URLSessionProtocol {
 }
 
 public class NetworkManager {
-//    public static let shared = NetworkManager(urlSession: URLSession.shared)
     public typealias Path = QueryBuilder.Path
     public typealias BaseUrl = QueryBuilder.BaseUrl
     private let queryBuilder = QueryBuilder()

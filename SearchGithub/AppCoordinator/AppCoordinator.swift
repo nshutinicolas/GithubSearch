@@ -11,6 +11,7 @@ import UIKit
     var children: [Coordinator] { get set }
     var navigationController: UINavigationController { get set }
     @objc optional func start()
+    @objc optional func dismissScreen()
 }
 
 class BaseCoordinator: Coordinator {
@@ -19,6 +20,11 @@ class BaseCoordinator: Coordinator {
     init(navigationController: UINavigationController, children: [Coordinator] = []) {
         self.children = children
         self.navigationController = navigationController
+    }
+    
+    func dismissScreen() {
+        // Should only be used for custom navigation
+        navigationController.popViewController(animated: true)
     }
 }
 

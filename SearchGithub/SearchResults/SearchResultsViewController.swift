@@ -16,6 +16,7 @@ class SearchResultsViewController: UIViewController {
     private lazy var resultsTableView: UITableView = {
         let table = UITableView()
         table.separatorStyle = .none
+        table.contentInset = .init(top: 20, left: 20, bottom: 20, right: 20)
         table.separatorInset = .init(top: 10, left: 10, bottom: 10, right: 10)
         table.register(SearchResultsTableCell.self, forCellReuseIdentifier: SearchResultsTableCell.identifier)
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -28,7 +29,7 @@ class SearchResultsViewController: UIViewController {
         // TODO: Replce with RxSwift
         view.addSubview(resultsTableView)
         bindTableViewController()
-        bindViewModel()
+        bindViewModelMethods()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,7 +44,7 @@ class SearchResultsViewController: UIViewController {
     
     private func bindTableViewController() {
         resultsTableView.rx.setDelegate(self).disposed(by: bag)
-        resultsTableView.rx.modelSelected(UserModel.self)
+        resultsTableView.rx.modelSelected(GitUserModel.self)
             .subscribe(onNext: { [weak self] user in
                 guard let self else { return }
                 self.viewModel.selectedUser.onNext(user)
@@ -54,10 +55,13 @@ class SearchResultsViewController: UIViewController {
             .disposed(by: bag)
     }
     
-    private func bindViewModel() {
+    private func bindViewModelMethods() {
         viewModel.searchResults.bind(to: resultsTableView.rx.items(cellIdentifier: SearchResultsTableCell.identifier, cellType: SearchResultsTableCell.self)) { row, item, cell in
             cell.updatedUser(username: item.login, imageUrl: item.avatarUrl)
         }.disposed(by: bag)
+        
+        viewModel.isViewHidden.bind(to: view.rx.isHidden)
+            .disposed(by: bag)
     }
 }
 

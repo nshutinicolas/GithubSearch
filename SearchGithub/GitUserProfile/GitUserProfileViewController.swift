@@ -6,18 +6,53 @@
 //
 
 import UIKit
-struct User: Decodable {
-    let login: String
-    let id: Int
-    let nodeId: String
-    let avatarUrl: URL
-    let gravatarId: String
-    let url: URL
-}
+import RxSwift
+import RxCocoa
 
 class GitUserProfileViewController: UIViewController {
     public var coordinator: GitUserProfileCoordinator?
     private let networkManager = NetworkManager()
+    private let bag = DisposeBag()
+    let viewModel = GitUserProfileViewModel()
+    
+    let user = PublishRelay<GitUserModel>()
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        self.user.subscribe(onNext: { [weak self] user in
+            guard let self else { return }
+            self.viewModel.fetchUser(from: user.login)
+        }).disposed(by: bag)
+        
+        viewModel.userInfo.subscribe( onNext: { [weak self] user in
+            guard let self else { return }
+            DispatchQueue.main.async {
+                self.updateView(with: user)
+            }
+            self.viewModel.loading.accept(false)
+        })
+        .disposed(by: bag)
+        viewModel.loading.bind(onNext: { [weak self] state in
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                self.mainStack.isHidden = state
+            }
+        })
+        .disposed(by: bag)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func updateView(with user: GitUserModel) {
+        usernameLabel.text = user.login
+        nameLabel.text = user.name ?? ""
+        profileImage.loadImage(from: user.avatarUrl)
+        followersCount.text = "\(user.followers ?? 0)"
+        followingCount.text = "\(user.following ?? 0)"
+        locationLabel.text = "\(user.location ?? "")"
+    }
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -26,7 +61,7 @@ class GitUserProfileViewController: UIViewController {
     }()
     private lazy var mainStack: UIStackView = {
         let stack = UIStackView()
-        stack.spacing = 8
+        stack.spacing = 20
         stack.distribution = .fill
         stack.axis = .vertical
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -50,12 +85,6 @@ class GitUserProfileViewController: UIViewController {
     
     func fetchData() {
         Task {
-//            do {
-//                let user = try await networkManager.fetch(from: .users(username: "nshutinicolas"), model: User.self)
-//                print(user)
-//            } catch {
-//                print("Error: \(error.localizedDescription)")
-//            }
         }
     }
     
@@ -74,33 +103,38 @@ class GitUserProfileViewController: UIViewController {
             mainStack.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 10),
             mainStack.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             mainStack.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -10),
-//            mainStack.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
             mainStack.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -20)
         ])
     }
     func configureMainStack() {
-        [userBioStack, followButton].forEach { view in
-            mainStack.addArrangedSubview(view)
-        }
-        NSLayoutConstraint.activate([
-            profileImageBlock.heightAnchor.constraint(equalToConstant: 60),
-            profileImageBlock.widthAnchor.constraint(equalToConstant: 60)
-        ])
+        [userBioStack, followButton].forEach { mainStack.addArrangedSubview($0) }
+        setUserBioView()
     }
     // MARK: - User Bio Views
+    private func setUserBioView() {
+        [profileViewStack,
+         locationStack,
+         engagementStack
+        ].forEach { userBioStack.addArrangedSubview($0) }
+        NSLayoutConstraint.activate([
+            profileImage.heightAnchor.constraint(equalToConstant: 120),
+            profileImage.widthAnchor.constraint(equalToConstant: 120)
+        ])
+    }
     private lazy var userBioStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [profileViewStack, locationStack, engagementStack])
-        stack.spacing = 8
-        stack.distribution = .fillProportionally
+        let stack = UIStackView()
+        stack.spacing = 20
+        stack.distribution = .fill
         stack.axis = .vertical
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
     private lazy var profileViewStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [profileImageBlock, labelBioStack])
+        let stack = UIStackView(arrangedSubviews: [profileImage, labelBioStack])
         stack.spacing = 8
         stack.distribution = .fillProportionally
         stack.axis = .horizontal
+        stack.alignment = .center
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
@@ -114,14 +148,12 @@ class GitUserProfileViewController: UIViewController {
     }()
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Nicolas Nshuti"
         label.font = .systemFont(ofSize: 18, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     private lazy var usernameLabel: UILabel = {
         let label = UILabel()
-        label.text = "nshutinicolas"
         label.font = .systemFont(ofSize: 16)
         label.textColor = .secondaryLabel
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -135,17 +167,10 @@ class GitUserProfileViewController: UIViewController {
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
-    private lazy var profileImageBlock: UIView = {
-        let view = UIView()
-        view.backgroundColor = .yellow
-        view.layer.cornerRadius = 30
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
     private lazy var locationStack: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [locationIcon, locationLabel])
         stack.spacing = 4
-        stack.distribution = .fill
+        stack.distribution = .fillProportionally
         stack.axis = .horizontal
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
@@ -155,7 +180,7 @@ class GitUserProfileViewController: UIViewController {
         imageView.image = .init(systemName: "location.north.circle.fill")
         imageView.tintColor = .label
         imageView.contentMode = .scaleAspectFit
-        imageView.frame = .init(x: .zero, y: .zero, width: 20, height: 20)
+//        imageView.frame = .init(x: .zero, y: .zero, width: 20, height: 20)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -171,17 +196,17 @@ class GitUserProfileViewController: UIViewController {
         let stack = UIStackView(arrangedSubviews: [engagementIcon, followersCount, followersLabel, followingCount, followingLabel])
         stack.setCustomSpacing(10, after: engagementIcon)
         stack.spacing = 4
-        stack.distribution = .fill
+        stack.distribution = .fillProportionally
         stack.axis = .horizontal
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
     private lazy var engagementIcon: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = .init(systemName: "person.fill")
+        imageView.image = .init(systemName: "person.3.sequence.fill")
         imageView.tintColor = .label
         imageView.contentMode = .scaleAspectFit
-        imageView.frame = .init(x: .zero, y: .zero, width: 20, height: 20)
+//        imageView.frame = .init(x: .zero, y: .zero, width: 20, height: 20)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -196,7 +221,6 @@ class GitUserProfileViewController: UIViewController {
     }()
     private lazy var followersCount: UILabel = {
         let label = UILabel()
-        label.text = "10"
         label.font = .systemFont(ofSize: 16, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -217,23 +241,48 @@ class GitUserProfileViewController: UIViewController {
     }()
     private lazy var followingCount: UILabel = {
         let label = UILabel()
-        label.text = "20"
         label.font = .systemFont(ofSize: 16, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
+    // TODO: Style the buttons and add them to the view
     private lazy var followButton: UIButton = {
         let button = UIButton()
-        button.setTitle("+ Follow", for: .normal)
         var config = UIButton.Configuration.plain()
         config.contentInsets = .init(top: 10, leading: 5, bottom: 10, trailing: 5)
+        config.title = "Follow"
+        config.image = UIImage(systemName: "plus")
         button.configuration = config
-        button.setTitleColor(.label, for: .normal)
+//        button.setTitleColor(.label, for: .normal)
+        button.backgroundColor = .gray
+        button.layer.cornerRadius = 8
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    private lazy var followersButton: UIButton = {
+        let button = UIButton()
+        var config = UIButton.Configuration.plain()
+        config.contentInsets = .init(top: 10, leading: 5, bottom: 10, trailing: 5)
+        config.title = "Followers"
+        config.image = UIImage(systemName: "shared.with.you")
+        button.configuration = config
+        button.backgroundColor = .gray
+        button.layer.cornerRadius = 8
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    private lazy var followingButton: UIButton = {
+        let button = UIButton()
+        var config = UIButton.Configuration.plain()
+        config.contentInsets = .init(top: 10, leading: 5, bottom: 10, trailing: 5)
+        config.title = "Followers"
+        config.image = UIImage(systemName: "shared.with.you")
+        button.configuration = config
         button.backgroundColor = .gray
         button.layer.cornerRadius = 8
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
 }
-

@@ -30,6 +30,11 @@
 		F4C4BA9B2AF36AAF00FFB4B2 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C4BA982AF36AAF00FFB4B2 /* SearchResultsViewController.swift */; };
 		F4C4BA9C2AF36AAF00FFB4B2 /* SearchResultsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C4BA992AF36AAF00FFB4B2 /* SearchResultsTableCell.swift */; };
 		F4C4BA9D2AF36AAF00FFB4B2 /* SearchResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C4BA9A2AF36AAF00FFB4B2 /* SearchResultsViewModel.swift */; };
+		F4C4BA9F2AF394DF00FFB4B2 /* GitUserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C4BA9E2AF394DF00FFB4B2 /* GitUserProfileViewModel.swift */; };
+		F4C4BAA12AF39D9C00FFB4B2 /* GitUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C4BAA02AF39D9C00FFB4B2 /* GitUserModel.swift */; };
+		F4C4BAA42AF39F5400FFB4B2 /* EngagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C4BAA32AF39F5400FFB4B2 /* EngagementViewModel.swift */; };
+		F4C4BAA62AF39F8200FFB4B2 /* EngagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C4BAA52AF39F8200FFB4B2 /* EngagementViewController.swift */; };
+		F4C4BAA82AF3A61C00FFB4B2 /* EngagementCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C4BAA72AF3A61C00FFB4B2 /* EngagementCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +71,11 @@
 		F4C4BA982AF36AAF00FFB4B2 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		F4C4BA992AF36AAF00FFB4B2 /* SearchResultsTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsTableCell.swift; sourceTree = "<group>"; };
 		F4C4BA9A2AF36AAF00FFB4B2 /* SearchResultsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsViewModel.swift; sourceTree = "<group>"; };
+		F4C4BA9E2AF394DF00FFB4B2 /* GitUserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitUserProfileViewModel.swift; sourceTree = "<group>"; };
+		F4C4BAA02AF39D9C00FFB4B2 /* GitUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitUserModel.swift; sourceTree = "<group>"; };
+		F4C4BAA32AF39F5400FFB4B2 /* EngagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngagementViewModel.swift; sourceTree = "<group>"; };
+		F4C4BAA52AF39F8200FFB4B2 /* EngagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngagementViewController.swift; sourceTree = "<group>"; };
+		F4C4BAA72AF3A61C00FFB4B2 /* EngagementCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngagementCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +130,7 @@
 		F47C91722AF0BC1900F3D587 /* SearchGithub */ = {
 			isa = PBXGroup;
 			children = (
+				F4C4BAA22AF39F3700FFB4B2 /* Engagement */,
 				F47C91872AF0BC5D00F3D587 /* AppCoordinator */,
 				F4C4BA8B2AF3692D00FFB4B2 /* GitUserProfile */,
 				F47C918F2AF0F0B600F3D587 /* Networking */,
@@ -190,8 +201,10 @@
 		F4C4BA8B2AF3692D00FFB4B2 /* GitUserProfile */ = {
 			isa = PBXGroup;
 			children = (
+				F4C4BAA02AF39D9C00FFB4B2 /* GitUserModel.swift */,
 				F4C4BA8C2AF3692D00FFB4B2 /* GitUserProfileCoordinator.swift */,
 				F4C4BA8D2AF3692D00FFB4B2 /* GitUserProfileViewController.swift */,
+				F4C4BA9E2AF394DF00FFB4B2 /* GitUserProfileViewModel.swift */,
 			);
 			path = GitUserProfile;
 			sourceTree = "<group>";
@@ -204,6 +217,16 @@
 				F4C4BA9A2AF36AAF00FFB4B2 /* SearchResultsViewModel.swift */,
 			);
 			path = SearchResults;
+			sourceTree = "<group>";
+		};
+		F4C4BAA22AF39F3700FFB4B2 /* Engagement */ = {
+			isa = PBXGroup;
+			children = (
+				F4C4BAA32AF39F5400FFB4B2 /* EngagementViewModel.swift */,
+				F4C4BAA52AF39F8200FFB4B2 /* EngagementViewController.swift */,
+				F4C4BAA72AF3A61C00FFB4B2 /* EngagementCoordinator.swift */,
+			);
+			path = Engagement;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -315,6 +338,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4B0ACD22AF22A3500E672D5 /* SearchViewModel.swift in Sources */,
+				F4C4BAA12AF39D9C00FFB4B2 /* GitUserModel.swift in Sources */,
 				F4C4BA9B2AF36AAF00FFB4B2 /* SearchResultsViewController.swift in Sources */,
 				F47C91912AF0F0CF00F3D587 /* QueryBuilder.swift in Sources */,
 				F4C4BA9C2AF36AAF00FFB4B2 /* SearchResultsTableCell.swift in Sources */,
@@ -322,12 +346,16 @@
 				F4C4BA8A2AF3690600FFB4B2 /* RemoteImage.swift in Sources */,
 				F47C91782AF0BC1900F3D587 /* SearchViewController.swift in Sources */,
 				F4355D1B2AF215FD00C70622 /* SearchCoordinator.swift in Sources */,
+				F4C4BAA62AF39F8200FFB4B2 /* EngagementViewController.swift in Sources */,
+				F4C4BAA42AF39F5400FFB4B2 /* EngagementViewModel.swift in Sources */,
 				F47C91932AF0F10C00F3D587 /* NetworkManager.swift in Sources */,
 				F4C4BA8E2AF3692D00FFB4B2 /* GitUserProfileCoordinator.swift in Sources */,
+				F4C4BAA82AF3A61C00FFB4B2 /* EngagementCoordinator.swift in Sources */,
 				F4C4BA8F2AF3692D00FFB4B2 /* GitUserProfileViewController.swift in Sources */,
 				F4C4BA9D2AF36AAF00FFB4B2 /* SearchResultsViewModel.swift in Sources */,
 				F47C91742AF0BC1900F3D587 /* AppDelegate.swift in Sources */,
 				F47C91762AF0BC1900F3D587 /* SceneDelegate.swift in Sources */,
+				F4C4BA9F2AF394DF00FFB4B2 /* GitUserProfileViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

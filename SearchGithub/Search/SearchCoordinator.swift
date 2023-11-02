@@ -15,8 +15,9 @@ class SearchCoordinator: BaseCoordinator {
         navigationController.setViewControllers([viewController], animated: true)
     }
     
-    func navigateToProfile() {
-        let coordinator = GitUserProfileCoordinator(navigationController: navigationController)
-        coordinator.start()
+    func navigateToProfile(of user: GitUserModel) {
+        let userProfileCoordinator = GitUserProfileCoordinator(navigationController: navigationController)
+        children.append(userProfileCoordinator)
+        userProfileCoordinator.start(with: user)
     }
 }
