@@ -37,6 +37,10 @@ End points used:
 
 > I would advice to use postman or any other related tool to get the data structure
 
+### Data persistence
+
+`CoreData` is used to stored all the previously viewed profiles and they are available on the search page(SearchViewController)
+
 ### Unit tests
 
 In this Project, I adoptes the `TDD(Test Driven Development)` method and testiing is much more important going forward witth this project.
