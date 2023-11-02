@@ -13,7 +13,7 @@ class QueryBuilderUnitTests: XCTestCase {
     func test_searchGithubEndpoint_isValid() throws {
         let query = "nicolas"
         let builder = QueryBuilder()
-        let url = try XCTUnwrap(builder.url(from: .github, query: .search(query: query)))
+        let url = try XCTUnwrap(builder.url(from: .github, path:))
         XCTAssertEqual(url.absoluteString, "https://api.github.com/search/users?q=nicolas")
     }
     

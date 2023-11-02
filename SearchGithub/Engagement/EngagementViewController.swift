@@ -61,6 +61,7 @@ class EngagementViewController: UIViewController {
             .subscribe(onNext: { [weak self] user in
                 guard let self else { return }
                 self.viewModel.selectedUser.onNext(user)
+                // TODO: Update Git user profile and dismiss this view
                 if let indexPath = self.usersTableView.indexPathForSelectedRow {
                     self.usersTableView.deselectRow(at: indexPath, animated: true)
                 }

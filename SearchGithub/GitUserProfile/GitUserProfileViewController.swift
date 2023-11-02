@@ -14,11 +14,14 @@ class GitUserProfileViewController: UIViewController {
     private let networkManager = NetworkManager()
     private let bag = DisposeBag()
     let viewModel = GitUserProfileViewModel()
+    private var userModel: GitUserModel?
     
     let user = PublishRelay<GitUserModel>()
     
+    // TODO: Consider initiliazing the view with user model first
     init() {
         super.init(nibName: nil, bundle: nil)
+        // TODO: Remove this infavor of initializer
         self.user.subscribe(onNext: { [weak self] user in
             guard let self else { return }
             self.viewModel.fetchUser(from: user.login)
@@ -28,6 +31,7 @@ class GitUserProfileViewController: UIViewController {
             guard let self else { return }
             DispatchQueue.main.async {
                 self.updateView(with: user)
+                self.userModel = user
             }
             self.viewModel.loading.accept(false)
         })
@@ -52,6 +56,12 @@ class GitUserProfileViewController: UIViewController {
         followersCount.text = "\(user.followers ?? 0)"
         followingCount.text = "\(user.following ?? 0)"
         locationLabel.text = "\(user.location ?? "")"
+        if let followerCount = user.followers, followerCount > 0 {
+            followingButton.setTitle("Followers (\(followerCount))", for: .normal)
+        }
+        if let followingCount = user.following, followingCount > 0 {
+            followersButton.setTitle("Following (\(followingCount)", for: .normal)
+        }
     }
     
     private lazy var scrollView: UIScrollView = {
@@ -107,7 +117,11 @@ class GitUserProfileViewController: UIViewController {
         ])
     }
     func configureMainStack() {
-        [userBioStack, followButton].forEach { mainStack.addArrangedSubview($0) }
+        [userBioStack,
+         followButton,
+         followingButton,
+         followersButton
+        ].forEach { mainStack.addArrangedSubview($0) }
         setUserBioView()
     }
     // MARK: - User Bio Views
@@ -121,6 +135,7 @@ class GitUserProfileViewController: UIViewController {
             profileImage.widthAnchor.constraint(equalToConstant: 120)
         ])
     }
+    // TODO: Extract this to a separate component
     private lazy var userBioStack: UIStackView = {
         let stack = UIStackView()
         stack.spacing = 20
@@ -180,7 +195,6 @@ class GitUserProfileViewController: UIViewController {
         imageView.image = .init(systemName: "location.north.circle.fill")
         imageView.tintColor = .label
         imageView.contentMode = .scaleAspectFit
-//        imageView.frame = .init(x: .zero, y: .zero, width: 20, height: 20)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -206,7 +220,6 @@ class GitUserProfileViewController: UIViewController {
         imageView.image = .init(systemName: "person.3.sequence.fill")
         imageView.tintColor = .label
         imageView.contentMode = .scaleAspectFit
-//        imageView.frame = .init(x: .zero, y: .zero, width: 20, height: 20)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -254,7 +267,6 @@ class GitUserProfileViewController: UIViewController {
         config.title = "Follow"
         config.image = UIImage(systemName: "plus")
         button.configuration = config
-//        button.setTitleColor(.label, for: .normal)
         button.backgroundColor = .gray
         button.layer.cornerRadius = 8
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -271,6 +283,7 @@ class GitUserProfileViewController: UIViewController {
         button.backgroundColor = .gray
         button.layer.cornerRadius = 8
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(navigateToFollowers), for: .touchUpInside)
         return button
     }()
     private lazy var followingButton: UIButton = {
@@ -285,4 +298,16 @@ class GitUserProfileViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    // TODO: Arrange these methods
+    @objc private func navigateToFollowers() {
+        // Get the value from The Relay - Temporary workaround
+        if let userModel {
+            coordinator?.navigateToEngagement(for: userModel, engagement: .followers)
+        }
+    }
+    @objc private func navigateToFollowing() {
+        if let userModel {
+            coordinator?.navigateToEngagement(for: userModel, engagement: .following)
+        }
+    }
 }

@@ -88,6 +88,7 @@ public struct QueryBuilder {
         return url
     }
     
+    // TODO: Complete this work
     public func urlExperimental(from baseUrl: BaseUrl, path: Path? = nil, queries: [QueryItem]) -> URL? {
 //        var finalUrl: URL?
 //        var url = URL(string: baseUrl.urlString)
