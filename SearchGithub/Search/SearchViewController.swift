@@ -33,7 +33,6 @@ class SearchViewController: UIViewController {
         let paddingView = UIView(frame: .init(origin: .zero, size: .init(width: 10, height: .zero)))
         textField.leftView = paddingView
         textField.leftViewMode = .always
-//        textField.rightView = paddingView
         return textField
     }()
     private lazy var clearSearchButton: UIButton = {
