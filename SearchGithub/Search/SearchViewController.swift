@@ -6,9 +6,14 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class SearchViewController: UIViewController {
     private let viewModel = SearchViewModel()
+    private let bag = DisposeBag()
+    
+    public var coordinator: SearchCoordinator?
     
     private lazy var searchTextField: UISearchTextField = {
         let textField = UISearchTextField()
@@ -43,17 +48,14 @@ class SearchViewController: UIViewController {
         return button
     }()
     
-    private lazy var searchResultsViewController: UIViewController = {
-        let searchResultsVC = SearchResultsViewController()
-        return searchResultsVC
-    }()
+    private lazy var searchResultsViewController = SearchResultsViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        navigationController?.setNavigationBarHidden(true, animated: false)
         // Do any additional setup after loading the view.
         view.addSubview(searchTextField)
-        searchTextField.delegate = self
         view.addSubview(emptyViewStack)
         addChild(searchResultsViewController)
         view.addSubview(searchResultsViewController.view)
@@ -61,7 +63,9 @@ class SearchViewController: UIViewController {
         searchResultsViewController.view.isHidden = true
 
         searchResultsViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        viewModel.delegate = self
+        
+        bindSearchTextField()
+        bindSearchResultsViewModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,6 +79,11 @@ class SearchViewController: UIViewController {
         ])
         setupEmptyViewConstraints()
         setupSearchResultsVCConstraints()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     private func setupSearchResultsVCConstraints() {
@@ -98,23 +107,34 @@ class SearchViewController: UIViewController {
             searchButton.heightAnchor.constraint(equalToConstant: 60),
         ])
     }
-}
-
-extension SearchViewController: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        // TODO: Add animation
-        searchResultsViewController.view.isHidden = false
+    
+    private func bindSearchTextField() {
+        searchTextField.rx.text
+            .throttle(.seconds(1), scheduler: MainScheduler.instance)
+            .distinctUntilChanged()
+            .filter { text in
+                guard let text, text.count > 2 else { return false }
+                return true
+            }
+            .subscribe(onNext: { [weak self] text in
+                guard let self else { return }
+                self.searchResultsViewController.viewModel.searchGithubUser(named: text)
+            })
+            .disposed(by: bag)
+        
+        searchTextField.rx.controlEvent(.editingDidBegin)
+            .subscribe(onNext:{ [weak self] in
+                guard let self else { return }
+                self.searchResultsViewController.view.isHidden = false
+            })
+            .disposed(by: bag)
     }
-    func textFieldDidChangeSelection(_ textField: UITextField) {
-        viewModel.searchGithubUser(named: textField.text)
+    
+    private func bindSearchResultsViewModel() {
+        searchResultsViewController.viewModel.selectedUser.subscribe(onNext: { [weak self] user in
+            guard let self else { return }
+            self.coordinator?.navigateToProfile()
+        })
+        .disposed(by: bag)
     }
 }
-
-extension SearchViewController: SearchViewModelDelegate {
-    func updateSearchResults(_ results: [UserModel]) {
-        DispatchQueue.main.async {
-            // Update the UI
-        }
-    }
-}
-

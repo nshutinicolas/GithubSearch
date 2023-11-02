@@ -1,5 +1,5 @@
 //
-//  UserProfileViewController.swift
+//  GitUserProfileViewController.swift
 //  SearchGithub
 //
 //  Created by Nicolas Nshuti on 31/10/2023.
@@ -15,8 +15,10 @@ struct User: Decodable {
     let url: URL
 }
 
-class UserProfileViewController: UIViewController {
+class GitUserProfileViewController: UIViewController {
+    public var coordinator: GitUserProfileCoordinator?
     private let networkManager = NetworkManager()
+    
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +32,7 @@ class UserProfileViewController: UIViewController {
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
-//    private lazy var 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -233,9 +235,5 @@ class UserProfileViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-}
-
-private extension UserProfileViewController {
-    
 }
 

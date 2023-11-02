@@ -1,42 +1,15 @@
 //
-//  SearchViewModel.swift
+//  SearchResultsViewModel.swift
 //  SearchGithub
 //
 //  Created by Nicolas Nshuti on 01/11/2023.
 //
 
-import Foundation
+import UIKit
 import RxCocoa
 import RxSwift
 
-struct UserModel: Identifiable, Decodable {
-    let id: Int
-    let name: String?
-    let login: String
-    let bio: String?
-    let avatarUrl: String
-    let url: String
-    let followersUrl: String
-    let followingUrl: String
-    let reposUrl: String
-    let followers: Int?
-    let following: Int?
-    let publicRepos: Int?
-    let publicGists: Int?
-}
-
-struct GitResponse: Decodable {
-    let totalCount: Int
-    let incompleteResults: Bool
-    let items: [UserModel]
-}
-
-// Temporary implementation
-protocol SearchViewModelDelegate {
-    func updateSearchResults(_ results: [UserModel])
-}
-
-class SearchViewModel {
+class SearchResultsViewModel {
     private let networkManager = NetworkManager()
     
     var searchResults = BehaviorRelay(value: [UserModel]())
