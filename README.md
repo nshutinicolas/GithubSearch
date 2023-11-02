@@ -23,6 +23,20 @@ The project is built to be reactive with `RxSwift` which eliminates the usage of
 
 The Views were programmatically written(no storyboard)
 
+### Search Engine
+
+This project exploits [Github public APIs](https://api.github.com) to query and search users
+
+End points used:
+
+- Search: `https://api.github.com/search/users?q={query}`
+- Get users: `https://api.github.com/users`
+- Get user by username: `https://api.github.com/users/{username}`
+- Get user followers: `https://api.github.com/users/{username}/followers`
+- Get user following: `https://api.github.com/users/{username}/following`
+
+> I would advice to use postman or any other related tool to get the data structure
+
 ### Unit tests
 
 In this Project, I adoptes the `TDD(Test Driven Development)` method and testiing is much more important going forward witth this project.
