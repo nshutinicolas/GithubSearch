@@ -9,6 +9,11 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+/** TODO
+ * - Implement stored users view
+ * - Observer viewModel methods
+ */
+
 class SearchViewController: UIViewController {
     private let viewModel = SearchViewModel()
     private let bag = DisposeBag()

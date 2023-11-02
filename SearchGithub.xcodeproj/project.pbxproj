@@ -40,6 +40,8 @@
 		F4C4BAAF2AF3D81800FFB4B2 /* GitUserProfileViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C4BAAE2AF3D81800FFB4B2 /* GitUserProfileViewModelUnitTests.swift */; };
 		F4C4BAB12AF3D88F00FFB4B2 /* SearchViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C4BAB02AF3D88F00FFB4B2 /* SearchViewModelUnitTests.swift */; };
 		F4C4BAB32AF3D8CF00FFB4B2 /* EngagementViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C4BAB22AF3D8CF00FFB4B2 /* EngagementViewModelUnitTests.swift */; };
+		F4C4BAB62AF3DB6000FFB4B2 /* LocalDataManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F4C4BAB42AF3DB6000FFB4B2 /* LocalDataManager.xcdatamodeld */; };
+		F4C4BAB92AF3DD6E00FFB4B2 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C4BAB82AF3DD6E00FFB4B2 /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +88,8 @@
 		F4C4BAAE2AF3D81800FFB4B2 /* GitUserProfileViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitUserProfileViewModelUnitTests.swift; sourceTree = "<group>"; };
 		F4C4BAB02AF3D88F00FFB4B2 /* SearchViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModelUnitTests.swift; sourceTree = "<group>"; };
 		F4C4BAB22AF3D8CF00FFB4B2 /* EngagementViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngagementViewModelUnitTests.swift; sourceTree = "<group>"; };
+		F4C4BAB52AF3DB6000FFB4B2 /* LocalDataManager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LocalDataManager.xcdatamodel; sourceTree = "<group>"; };
+		F4C4BAB82AF3DD6E00FFB4B2 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,9 +144,10 @@
 		F47C91722AF0BC1900F3D587 /* SearchGithub */ = {
 			isa = PBXGroup;
 			children = (
-				F4C4BAA22AF39F3700FFB4B2 /* Engagement */,
 				F47C91872AF0BC5D00F3D587 /* AppCoordinator */,
+				F4C4BAA22AF39F3700FFB4B2 /* Engagement */,
 				F4C4BA8B2AF3692D00FFB4B2 /* GitUserProfile */,
+				F4C4BAB72AF3DB6800FFB4B2 /* localDataManager */,
 				F47C918F2AF0F0B600F3D587 /* Networking */,
 				F4C4BA882AF3690600FFB4B2 /* RemoteImage */,
 				F4355D192AF215D700C70622 /* Search */,
@@ -250,6 +255,15 @@
 				F4C4BAB22AF3D8CF00FFB4B2 /* EngagementViewModelUnitTests.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		F4C4BAB72AF3DB6800FFB4B2 /* localDataManager */ = {
+			isa = PBXGroup;
+			children = (
+				F4C4BAB42AF3DB6000FFB4B2 /* LocalDataManager.xcdatamodeld */,
+				F4C4BAB82AF3DD6E00FFB4B2 /* CoreDataManager.swift */,
+			);
+			path = localDataManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -361,6 +375,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4B0ACD22AF22A3500E672D5 /* SearchViewModel.swift in Sources */,
+				F4C4BAB62AF3DB6000FFB4B2 /* LocalDataManager.xcdatamodeld in Sources */,
 				F4C4BAA12AF39D9C00FFB4B2 /* GitUserModel.swift in Sources */,
 				F4C4BA9B2AF36AAF00FFB4B2 /* SearchResultsViewController.swift in Sources */,
 				F47C91912AF0F0CF00F3D587 /* QueryBuilder.swift in Sources */,
@@ -371,6 +386,7 @@
 				F4355D1B2AF215FD00C70622 /* SearchCoordinator.swift in Sources */,
 				F4C4BAA62AF39F8200FFB4B2 /* EngagementViewController.swift in Sources */,
 				F4C4BAA42AF39F5400FFB4B2 /* EngagementViewModel.swift in Sources */,
+				F4C4BAB92AF3DD6E00FFB4B2 /* CoreDataManager.swift in Sources */,
 				F47C91932AF0F10C00F3D587 /* NetworkManager.swift in Sources */,
 				F4C4BA8E2AF3692D00FFB4B2 /* GitUserProfileCoordinator.swift in Sources */,
 				F4C4BAA82AF3A61C00FFB4B2 /* EngagementCoordinator.swift in Sources */,
@@ -688,6 +704,19 @@
 			productName = RxSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		F4C4BAB42AF3DB6000FFB4B2 /* LocalDataManager.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F4C4BAB52AF3DB6000FFB4B2 /* LocalDataManager.xcdatamodel */,
+			);
+			currentVersion = F4C4BAB52AF3DB6000FFB4B2 /* LocalDataManager.xcdatamodel */;
+			path = LocalDataManager.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = F47C91682AF0BC1900F3D587 /* Project object */;
 }
