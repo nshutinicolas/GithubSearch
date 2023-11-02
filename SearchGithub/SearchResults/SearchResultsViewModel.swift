@@ -28,7 +28,7 @@ class SearchResultsViewModel {
         guard let name = name?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed), name.count > 2 else { return }
         Task {
             do {
-                let searchResults = try await networkManager.fetch(from: .github, endPoint: .search(query: name), model: GitResponse.self)
+                let searchResults = try await networkManager.fetch(from: .github, path: .search(query: name), model: GitResponse.self)
                 print(searchResults.totalCount) //<- Scam
                 self.searchResults.accept(searchResults.items)
             } catch {
