@@ -24,7 +24,7 @@ class GitUserProfileViewController: UIViewController {
         // TODO: Remove this infavor of initializer
         self.user.subscribe(onNext: { [weak self] user in
             guard let self else { return }
-            self.viewModel.fetchUser(from: user.login)
+            self.viewModel.fetchUser(user)
         }).disposed(by: bag)
         
         viewModel.userInfo.subscribe( onNext: { [weak self] user in
@@ -78,7 +78,6 @@ class GitUserProfileViewController: UIViewController {
         view.backgroundColor = .systemBackground
         view.addSubview(scrollView)
         scrollView.addSubview(mainStack)
-        fetchData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,11 +85,6 @@ class GitUserProfileViewController: UIViewController {
         setupScrollViewConstraints()
         setupMainStackConstraints()
         configureMainStack()
-    }
-    
-    func fetchData() {
-        Task {
-        }
     }
     
     func setupScrollViewConstraints() {

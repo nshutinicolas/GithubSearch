@@ -117,20 +117,25 @@ class SearchViewController: UIViewController {
         view.addSubview(emptyViewStack)
         view.addSubview(storedUsersTableView)
         
-        setupSearchBar()
         bindSearchTextField()
         bindSearchResultsViewModel()
         bindViewModelMethods()
+        bindStoredUserTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setupSearchBar()
         setupEmptyViewConstraints()
         setupStoredUsersTableConstraints()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.fetchStoredUsers()
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // Experimental
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -172,7 +177,6 @@ class SearchViewController: UIViewController {
             emptyViewStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             emptyViewStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
-        
     }
     
     private func setupStoredUsersTableConstraints() {
@@ -196,6 +200,23 @@ class SearchViewController: UIViewController {
             self.emptyViewStack.isHidden = !users.isEmpty
         })
         .disposed(by: bag)
+        
+        viewModel.selectedUser.subscribe(onNext: { [weak self] user in
+            guard let self else { return }
+            self.coordinator?.navigateToProfile(of: user)
+        })
+        .disposed(by: bag)
+    }
+    private func bindStoredUserTableView() {
+        storedUsersTableView.rx.modelSelected(GitUserModel.self)
+            .subscribe(onNext: { [weak self] user in
+                guard let self else { return }
+                self.viewModel.selectedUser.onNext(user)
+                if let indexPath = self.storedUsersTableView.indexPathForSelectedRow {
+                    self.storedUsersTableView.deselectRow(at: indexPath, animated: true)
+                }
+            })
+            .disposed(by: bag)
     }
     
     private func bindSearchTextField() {
@@ -250,6 +271,8 @@ class SearchViewController: UIViewController {
         searchResultsViewController.didMove(toParent: self)
         searchResultsViewController.viewModel.isViewHidden.accept(false)
         setupSearchResultsVCConstraints()
+        // TODO: UI Glitch
+        /// The view looses constraints when adding this subview
     }
     private func removeResultsVC() {
         searchResultsViewController.viewModel.isViewHidden.accept(true)

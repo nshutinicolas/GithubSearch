@@ -91,4 +91,18 @@ class CoreDataManager {
         storedUsers.forEach { userModel.append(createGitUserModel($0)) }
         return userModel
     }
+    
+    // TODO: Possibility of enum keys - Look into it
+    /// Making this more generic would help - extract the underlying predicate
+    /// Tempory to get the job done for now
+    func fetchUser(with key: String, value: String) throws -> GitUserModel? {
+        let request: NSFetchRequest<GitUser> = GitUser.fetchRequest()
+        request.fetchLimit = 1
+        let searchPredicate = NSPredicate(format: "\(key) == %@", value)
+        request.predicate = searchPredicate
+        let storedUser = try viewContext.fetch(request).first
+        // Possibility of returning nil - Look into generic implementation
+        guard let storedUser else { return nil }
+        return createGitUserModel(storedUser)
+    }
 }

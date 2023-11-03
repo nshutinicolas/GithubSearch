@@ -31,8 +31,8 @@ class RemoteImage: UIImageView {
                     guard let self else { return }
                     self.image = imageData
                     self.imageCache.setObject(imageData, forKey: url.absoluteString as NSString)
-                    removeSpinner()
                 }
+                removeSpinner()
             } catch {
                 // TODO: Handle error - Add a placeholder image
                 self.image = UIImage(systemName: "rectangle.portrait.slash")

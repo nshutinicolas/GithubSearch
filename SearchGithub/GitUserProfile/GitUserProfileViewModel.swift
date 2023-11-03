@@ -19,11 +19,16 @@ class GitUserProfileViewModel {
     
     init() { }
     
-    func fetchUser(from username: String) {
+    func fetchUser(_ user: GitUserModel) {
         Task {
         // TODO: Query LocalStorage first - available load that else load remote content
             do {
-                let gitUser = try await networkManager.fetch(from: .github, path: .users(username: username), model: GitUserModel.self)
+                let storedUser = try coreDataManager.fetchUser(with: "login", value: user.login)
+                if let storedUser {
+                    userInfo.accept(storedUser)
+                    return
+                }
+                let gitUser = try await networkManager.fetch(from: .github, path: .users(username: user.login), model: GitUserModel.self)
                 userInfo.accept(gitUser)
                 saveGitUserLocally(gitUser)
                 loading.accept(false)

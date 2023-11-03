@@ -19,6 +19,7 @@ class SearchViewModel {
     
     let storedUsersRelay = BehaviorRelay<[GitUserModel]>(value: [])
     var storedUsersModel: [GitUserModel] = []
+    let selectedUser = PublishSubject<GitUserModel>()
     
     init() { }
     
