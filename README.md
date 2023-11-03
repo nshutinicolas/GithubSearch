@@ -15,9 +15,9 @@ App is built in swift using UIKit as the UI framework and [RxSwift](https://gith
 
 ### Architecture
 
-The projectt architecture is built around `MVVM-C` with C being the coorindator
+The project architecture is built around `MVVM-C` with C being the coorindator
 
-The coordinator handles the app flow throughtout. All coordinators should inherit from `BaseCoordinator`.
+The coordinator handles the app flow throughtout and all coordinators should inherit from `BaseCoordinator`.
 
 The project is built to be reactive with `RxSwift` which eliminates the usage of unnecessary delegates and NotificationCenter
 
@@ -42,6 +42,8 @@ End points used:
 `CoreData` is used to stored all the previously viewed profiles and they are available on the search page(SearchViewController)
 
 ### Unit tests
+
+> 🚨 No unit test yet. Still resolving "Missing required module 'RxCocoaRuntime'" error in RxSwift. Possible solution is to use Cocoapods inplace of SPM but not sure yet.
 
 In this Project, I adopted the `TDD(Test Driven Development)` method and testing is much more important going forward with this project.
 

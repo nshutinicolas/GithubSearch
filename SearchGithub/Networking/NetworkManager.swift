@@ -20,6 +20,8 @@ extension URLSession: URLSessionProtocol {
 public class NetworkManager {
     public typealias Path = QueryBuilder.Path
     public typealias BaseUrl = QueryBuilder.BaseUrl
+    public typealias Queries = QueryBuilder.QueryItem
+    
     private let queryBuilder = QueryBuilder()
     private let decoder = JSONDecoder()
     private var urlSession: URLSessionProtocol
@@ -29,8 +31,8 @@ public class NetworkManager {
         decoder.keyDecodingStrategy = .convertFromSnakeCase
     }
     
-    public func fetch<T: Decodable>(from url: BaseUrl, path: Path? = nil, model: T.Type) async throws -> T {
-        guard let url = queryBuilder.url(from: url, path: path) else { throw URLError(.badURL) }
+    public func fetch<T: Decodable>(from url: BaseUrl, path: Path? = nil, queries: [Queries] = [], model: T.Type) async throws -> T {
+        guard let url = queryBuilder.url(from: url, path: path, queries: queries) else { throw URLError(.badURL) }
         let (data, response) = try await urlSession.fetchData(from: url)
         guard let response = response as? HTTPURLResponse, (200..<300).contains(response.statusCode) else {
             throw URLError(.badServerResponse)

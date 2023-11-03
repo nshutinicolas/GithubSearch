@@ -27,30 +27,18 @@ public struct QueryBuilder {
         }
     }
     public enum Path {
-        case search(query: String)
+        case search
         case users(username: String, path: UserPath? = nil)
-        case experiment(username: String, path: UserPath? = nil, queries: [QueryItem])
         
         var string: String {
             switch self {
-            case .search(let query):
-                return "search/users?q=\(query)&per_page=10" // TODO: Remove the constants use QueryItem
+            case .search:
+                return "search/users"
             case .users(let username, let path):
                 guard let path else { return "users/\(username)"}
                 return "users/\(username)/\(path)"
-            case .experiment(let username, _, _):
-                return "users/\(username)"
             }
         }
-//        var stringPath: String {
-//            switch self {
-//            case .search(let query):
-//                return "search/users" // TODO: Remove the constants use QueryItem
-//            case .users(let username, let path):
-//                guard let path else { return "users/\(username)"}
-//                return "users/\(username)/\(path)"
-//            }
-//        }
     }
     public enum UserPath: String {
         case followers, following
@@ -82,36 +70,16 @@ public struct QueryBuilder {
         }
     }
     
-    public func url(from baseUrl: BaseUrl, path: Path? = nil) -> URL? {
-        var stringUrl = baseUrl.urlString
-        if let path {
-            stringUrl+=path.string
-        }
-        guard let url = URL(string: stringUrl) else { return nil }
-        return url
-    }
-    
-    // TODO: Complete this work
-    /// The idea is to have everything work out of the box.
-    /// 
-    public func urlExperimental(from baseUrl: BaseUrl, path: Path? = nil, queries: [QueryItem]) -> URL? {
+    public func url(from baseUrl: BaseUrl, path: Path? = nil, queries: [QueryItem] = []) -> URL? {
         var queryItems: [URLQueryItem] = []
-        switch path {
-        case .search(_):
-            break
-        case .users(_, _):
-            break
-        case .experiment(_, _, let queries):
-            queries.forEach { queryItems.append(URLQueryItem(name: $0.key, value: $0.value)) }
-            
-        default:
-            break
-        }
+        queries.forEach { queryItems.append(URLQueryItem(name: $0.key, value: $0.value)) }
+        
         var urlComponents = URLComponents(string: baseUrl.urlString)
         if let path {
-            urlComponents?.path = path.string
+            urlComponents?.path += path.string
         }
-        urlComponents?.queryItems = queryItems
+        
+        urlComponents?.queryItems = queryItems.isEmpty ? nil : queryItems
         guard let url = urlComponents?.url else { return nil }
         return url
     }

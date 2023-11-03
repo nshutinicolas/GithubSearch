@@ -99,7 +99,6 @@ class SearchViewController: UIViewController {
     private lazy var storedUsersTableView: UITableView = {
         let table = UITableView()
         table.separatorStyle = .none
-        table.contentInset = .init(top: 20, left: 20, bottom: 20, right: 20)
         table.separatorInset = .init(top: 10, left: 10, bottom: 10, right: 10)
         table.register(StoredGitUsersTableCell.self, forCellReuseIdentifier: StoredGitUsersTableCell.identifier)
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -264,11 +263,9 @@ class SearchViewController: UIViewController {
         }
     }
     @objc private func clearResultSearch() {
-        if searchTextField.isFirstResponder {
-            searchTextField.text = ""
-            searchTextField.resignFirstResponder()
-            removeResultsVC()
-        }
+        searchTextField.resignFirstResponder()
+        searchTextField.text = ""
+        removeResultsVC()
     }
     
     // Experiemental

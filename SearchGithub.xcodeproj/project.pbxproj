@@ -45,6 +45,7 @@
 		F4C4BAC12AF4ECAB00FFB4B2 /* GitUser+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C4BABF2AF4ECAB00FFB4B2 /* GitUser+CoreDataClass.swift */; };
 		F4C4BAC52AF4F54500FFB4B2 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = F4C4BAC42AF4F54500FFB4B2 /* RxRelay */; };
 		F4C4BAC92AF4F70900FFB4B2 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = F4C4BAC82AF4F70900FFB4B2 /* RxCocoa */; };
+		F4C4BAD22AF564C100FFB4B2 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C4BAD12AF564C000FFB4B2 /* AppConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,7 @@
 		F4C4BABA2AF4C06600FFB4B2 /* StoredGitUsersTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredGitUsersTableCell.swift; sourceTree = "<group>"; };
 		F4C4BABD2AF4C11D00FFB4B2 /* GitUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitUserProfileView.swift; sourceTree = "<group>"; };
 		F4C4BABF2AF4ECAB00FFB4B2 /* GitUser+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GitUser+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F4C4BAD12AF564C000FFB4B2 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +154,7 @@
 		F47C91722AF0BC1900F3D587 /* SearchGithub */ = {
 			isa = PBXGroup;
 			children = (
+				F4C4BAD02AF5648E00FFB4B2 /* AppConstants */,
 				F47C91872AF0BC5D00F3D587 /* AppCoordinator */,
 				F4C4BABC2AF4C0F100FFB4B2 /* Components */,
 				F4C4BAA22AF39F3700FFB4B2 /* Engagement */,
@@ -283,6 +286,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F4C4BAD02AF5648E00FFB4B2 /* AppConstants */ = {
+			isa = PBXGroup;
+			children = (
+				F4C4BAD12AF564C000FFB4B2 /* AppConstants.swift */,
+			);
+			path = AppConstants;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -410,6 +421,7 @@
 				F4C4BABB2AF4C06600FFB4B2 /* StoredGitUsersTableCell.swift in Sources */,
 				F4C4BAA82AF3A61C00FFB4B2 /* EngagementCoordinator.swift in Sources */,
 				F4C4BA8F2AF3692D00FFB4B2 /* GitUserProfileViewController.swift in Sources */,
+				F4C4BAD22AF564C100FFB4B2 /* AppConstants.swift in Sources */,
 				F4C4BABE2AF4C11D00FFB4B2 /* GitUserProfileView.swift in Sources */,
 				F4C4BA9D2AF36AAF00FFB4B2 /* SearchResultsViewModel.swift in Sources */,
 				F47C91742AF0BC1900F3D587 /* AppDelegate.swift in Sources */,
