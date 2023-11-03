@@ -149,7 +149,7 @@ class SearchViewController: UIViewController {
     private func setupSearchBar() {
         [searchTextField, clearSearchButton].forEach { searchBarStack.addArrangedSubview($0) }
         NSLayoutConstraint.activate([
-            searchBarStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            searchBarStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             searchBarStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             searchBarStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             clearSearchButton.heightAnchor.constraint(equalToConstant: 48),
@@ -247,8 +247,15 @@ class SearchViewController: UIViewController {
             self.coordinator?.navigateToProfile(of: user)
         })
         .disposed(by: bag)
+        // TODO: Not ideal to use tableview directly. Change to an observable
+        searchResultsViewController.resultsTableView.rx.didScroll.subscribe(onNext: { [weak self] event in
+            guard let self, let text = self.searchTextField.text, !text.isEmpty else { return }
+            self.searchTextField.resignFirstResponder()
+        })
+        .disposed(by: bag)
     }
     
+    // TODO: Find Suitable naming for this method
     @objc private func searchTexfieldFocus() {
         if searchTextField.isFirstResponder {
             searchTextField.resignFirstResponder()

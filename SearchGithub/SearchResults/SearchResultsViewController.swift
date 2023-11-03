@@ -13,7 +13,7 @@ class SearchResultsViewController: UIViewController {
     
     public let viewModel = SearchResultsViewModel()
     
-    private lazy var resultsTableView: UITableView = {
+    lazy var resultsTableView: UITableView = {
         let table = UITableView()
         table.separatorStyle = .none
         table.contentInset = .init(top: 20, left: 20, bottom: 20, right: 20)

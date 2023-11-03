@@ -1,4 +1,4 @@
-//
+
 //  SearchViewModelUnitTests.swift
 //  SearchGithubUnitTests
 //
@@ -7,6 +7,7 @@
 
 import Foundation
 import XCTest
+import SearchGithub
 
 class SearchViewModelUnitTests: XCTestCase {
     

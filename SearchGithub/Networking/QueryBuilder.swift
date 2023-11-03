@@ -29,6 +29,7 @@ public struct QueryBuilder {
     public enum Path {
         case search(query: String)
         case users(username: String, path: UserPath? = nil)
+        case experiment(username: String, path: UserPath? = nil, queries: [QueryItem])
         
         var string: String {
             switch self {
@@ -37,6 +38,8 @@ public struct QueryBuilder {
             case .users(let username, let path):
                 guard let path else { return "users/\(username)"}
                 return "users/\(username)/\(path)"
+            case .experiment(let username, _, _):
+                return "users/\(username)"
             }
         }
 //        var stringPath: String {
@@ -89,15 +92,20 @@ public struct QueryBuilder {
     }
     
     // TODO: Complete this work
+    /// The idea is to have everything work out of the box.
+    /// 
     public func urlExperimental(from baseUrl: BaseUrl, path: Path? = nil, queries: [QueryItem]) -> URL? {
-//        var finalUrl: URL?
-//        var url = URL(string: baseUrl.urlString)
-//        if let path {
-//            finalUrl = url?.appendingPathComponent(path.string)
-//        }
         var queryItems: [URLQueryItem] = []
-        for query in queries {
-            queryItems.append(URLQueryItem(name: query.key, value: query.value))
+        switch path {
+        case .search(_):
+            break
+        case .users(_, _):
+            break
+        case .experiment(_, _, let queries):
+            queries.forEach { queryItems.append(URLQueryItem(name: $0.key, value: $0.value)) }
+            
+        default:
+            break
         }
         var urlComponents = URLComponents(string: baseUrl.urlString)
         if let path {

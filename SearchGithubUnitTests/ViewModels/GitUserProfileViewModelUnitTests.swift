@@ -7,6 +7,7 @@
 
 import Foundation
 import XCTest
+import SearchGithub
 
 class GitUserProfileViewModelUnitTests: XCTestCase {
     
