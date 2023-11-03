@@ -17,9 +17,9 @@ App is built in swift using UIKit as the UI framework and [RxSwift](https://gith
 
 The projectt architecture is built around `MVVM-C` with C being the coorindator
 
-The coordinator handles the app flow throughtout. All coordinators shouuld inherit from `BaseCoordinator`.
+The coordinator handles the app flow throughtout. All coordinators should inherit from `BaseCoordinator`.
 
-The project is built to be reactive with `RxSwift` which eliminates the usage of uunnecessay delegates and NotificationCenter
+The project is built to be reactive with `RxSwift` which eliminates the usage of unnecessary delegates and NotificationCenter
 
 The Views were programmatically written(no storyboard)
 
@@ -43,10 +43,12 @@ End points used:
 
 ### Unit tests
 
-In this Project, I adoptes the `TDD(Test Driven Development)` method and testiing is much more important going forward witth this project.
+In this Project, I adopted the `TDD(Test Driven Development)` method and testing is much more important going forward with this project.
 
 All viewModels were written to make them easily testable.
 
 ### Screenshots
 
-> Coming soon...🥳
+| **Empty Search View** | **Searching View** | **Search View** |
+| --- | --- | --- |
+| <img src="./screenshots/empty_search.png" width="250" /> | <img src="./screenshots/searching.png" width="250" /> | <img src="./screenshots/filled_search.png" width="250" /> |

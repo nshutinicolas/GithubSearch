@@ -17,12 +17,15 @@ protocol SearchViewModelDelegate {
 class SearchViewModel {
     private let coreDataManager = CoreDataManager.shared
     
-    let storedUsersRelay = PublishRelay<[GitUserModel]>()
+    let storedUsersRelay = BehaviorRelay<[GitUserModel]>(value: [])
     var storedUsersModel: [GitUserModel] = []
     
+    init() { }
     
     func fetchStoredUsers() {
-        let users = coreDataManager.fetchUsers()
+        // TODO: Review if there is need to handle this error!!???
+        let users = try? coreDataManager.fetchUsers()
+        guard let users else { return }
         storedUsersRelay.accept(users)
         storedUsersModel = users
     }

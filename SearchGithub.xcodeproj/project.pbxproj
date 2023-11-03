@@ -42,6 +42,8 @@
 		F4C4BAB32AF3D8CF00FFB4B2 /* EngagementViewModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C4BAB22AF3D8CF00FFB4B2 /* EngagementViewModelUnitTests.swift */; };
 		F4C4BAB62AF3DB6000FFB4B2 /* LocalDataManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F4C4BAB42AF3DB6000FFB4B2 /* LocalDataManager.xcdatamodeld */; };
 		F4C4BAB92AF3DD6E00FFB4B2 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C4BAB82AF3DD6E00FFB4B2 /* CoreDataManager.swift */; };
+		F4C4BABB2AF4C06600FFB4B2 /* StoredGitUsersTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C4BABA2AF4C06600FFB4B2 /* StoredGitUsersTableCell.swift */; };
+		F4C4BABE2AF4C11D00FFB4B2 /* GitUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C4BABD2AF4C11D00FFB4B2 /* GitUserProfileView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +92,8 @@
 		F4C4BAB22AF3D8CF00FFB4B2 /* EngagementViewModelUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngagementViewModelUnitTests.swift; sourceTree = "<group>"; };
 		F4C4BAB52AF3DB6000FFB4B2 /* LocalDataManager.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LocalDataManager.xcdatamodel; sourceTree = "<group>"; };
 		F4C4BAB82AF3DD6E00FFB4B2 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		F4C4BABA2AF4C06600FFB4B2 /* StoredGitUsersTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredGitUsersTableCell.swift; sourceTree = "<group>"; };
+		F4C4BABD2AF4C11D00FFB4B2 /* GitUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitUserProfileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +123,7 @@
 				F4355D1A2AF215FD00C70622 /* SearchCoordinator.swift */,
 				F47C91772AF0BC1900F3D587 /* SearchViewController.swift */,
 				F4B0ACD12AF22A3500E672D5 /* SearchViewModel.swift */,
+				F4C4BABA2AF4C06600FFB4B2 /* StoredGitUsersTableCell.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -145,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				F47C91872AF0BC5D00F3D587 /* AppCoordinator */,
+				F4C4BABC2AF4C0F100FFB4B2 /* Components */,
 				F4C4BAA22AF39F3700FFB4B2 /* Engagement */,
 				F4C4BA8B2AF3692D00FFB4B2 /* GitUserProfile */,
 				F4C4BAB72AF3DB6800FFB4B2 /* localDataManager */,
@@ -264,6 +270,14 @@
 				F4C4BAB82AF3DD6E00FFB4B2 /* CoreDataManager.swift */,
 			);
 			path = localDataManager;
+			sourceTree = "<group>";
+		};
+		F4C4BABC2AF4C0F100FFB4B2 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F4C4BABD2AF4C11D00FFB4B2 /* GitUserProfileView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -389,8 +403,10 @@
 				F4C4BAB92AF3DD6E00FFB4B2 /* CoreDataManager.swift in Sources */,
 				F47C91932AF0F10C00F3D587 /* NetworkManager.swift in Sources */,
 				F4C4BA8E2AF3692D00FFB4B2 /* GitUserProfileCoordinator.swift in Sources */,
+				F4C4BABB2AF4C06600FFB4B2 /* StoredGitUsersTableCell.swift in Sources */,
 				F4C4BAA82AF3A61C00FFB4B2 /* EngagementCoordinator.swift in Sources */,
 				F4C4BA8F2AF3692D00FFB4B2 /* GitUserProfileViewController.swift in Sources */,
+				F4C4BABE2AF4C11D00FFB4B2 /* GitUserProfileView.swift in Sources */,
 				F4C4BA9D2AF36AAF00FFB4B2 /* SearchResultsViewModel.swift in Sources */,
 				F47C91742AF0BC1900F3D587 /* AppDelegate.swift in Sources */,
 				F47C91762AF0BC1900F3D587 /* SceneDelegate.swift in Sources */,

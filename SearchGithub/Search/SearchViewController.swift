@@ -96,36 +96,45 @@ class SearchViewController: UIViewController {
         return button
     }()
     
+    private lazy var storedUsersTableView: UITableView = {
+        let table = UITableView()
+        table.separatorStyle = .none
+        table.contentInset = .init(top: 20, left: 20, bottom: 20, right: 20)
+        table.separatorInset = .init(top: 10, left: 10, bottom: 10, right: 10)
+        table.register(StoredGitUsersTableCell.self, forCellReuseIdentifier: StoredGitUsersTableCell.identifier)
+        table.translatesAutoresizingMaskIntoConstraints = false
+        return table
+    }()
+    
     private lazy var searchResultsViewController = SearchResultsViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         title = "Github Search"
-        // Do any additional setup after loading the view.
+        
         view.addSubview(searchBarStack)
         view.addSubview(emptyViewStack)
-        // Add Results VC as child VC
-        addChild(searchResultsViewController)
-        view.addSubview(searchResultsViewController.view)
-        searchResultsViewController.didMove(toParent: self)
+        view.addSubview(storedUsersTableView)
         
         setupSearchBar()
         bindSearchTextField()
         bindSearchResultsViewModel()
+        bindViewModelMethods()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        navigationController?.setNavigationBarHidden(true, animated: false)
-        // Set Search Text Field Constraints
         setupEmptyViewConstraints()
-        setupSearchResultsVCConstraints()
+        setupStoredUsersTableConstraints()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.fetchStoredUsers()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        navigationController?.setNavigationBarHidden(false, animated: false)
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -163,6 +172,30 @@ class SearchViewController: UIViewController {
             emptyViewStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             emptyViewStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
+        
+    }
+    
+    private func setupStoredUsersTableConstraints() {
+        NSLayoutConstraint.activate([
+            storedUsersTableView.topAnchor.constraint(equalTo: searchBarStack.bottomAnchor, constant: 10),
+            storedUsersTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            storedUsersTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            storedUsersTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+    
+    private func bindViewModelMethods() {
+        viewModel.storedUsersRelay.bind(to: storedUsersTableView.rx.items(cellIdentifier: StoredGitUsersTableCell.identifier, cellType: StoredGitUsersTableCell.self)) { row, user, cell in
+            cell.updateContent(with: user)
+        }
+        .disposed(by: bag)
+        
+        viewModel.storedUsersRelay.subscribe(onNext: { [weak self] users in
+            guard let self else { return }
+            self.storedUsersTableView.isHidden = users.isEmpty
+            self.emptyViewStack.isHidden = !users.isEmpty
+        })
+        .disposed(by: bag)
     }
     
     private func bindSearchTextField() {
@@ -182,7 +215,7 @@ class SearchViewController: UIViewController {
         searchTextField.rx.controlEvent(.editingDidBegin)
             .subscribe(onNext:{ [weak self] in
                 guard let self else { return }
-                self.searchResultsViewController.viewModel.isViewHidden.accept(false)
+                self.addResultsVC()
             })
             .disposed(by: bag)
     }
@@ -206,8 +239,23 @@ class SearchViewController: UIViewController {
         if searchTextField.isFirstResponder {
             searchTextField.text = ""
             searchTextField.resignFirstResponder()
-            searchResultsViewController.viewModel.isViewHidden.accept(true)
-            searchResultsViewController.viewModel.searchResults.accept([])
+            removeResultsVC()
         }
+    }
+    
+    // Experiemental
+    private func addResultsVC() {
+        addChild(searchResultsViewController)
+        view.addSubview(searchResultsViewController.view)
+        searchResultsViewController.didMove(toParent: self)
+        searchResultsViewController.viewModel.isViewHidden.accept(false)
+        setupSearchResultsVCConstraints()
+    }
+    private func removeResultsVC() {
+        searchResultsViewController.viewModel.isViewHidden.accept(true)
+        searchResultsViewController.viewModel.searchResults.accept([])
+        searchResultsViewController.willMove(toParent: nil)
+        searchResultsViewController.view.removeFromSuperview()
+        searchResultsViewController.removeFromParent()
     }
 }
