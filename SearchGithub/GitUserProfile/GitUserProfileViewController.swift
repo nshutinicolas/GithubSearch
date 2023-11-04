@@ -9,12 +9,20 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+/**
+ * Implement loading for this screen - when looking for a new user info
+ * The initializeer is quite weird. Fix it
+ * Some logic should go to the view model - For testing purposes
+ * A lot of mess - Declutter this VC
+ * Reeactiveness is .zero - Fix that part
+ * make the VC reactive fully and abort delegates
+ */
+
 class GitUserProfileViewController: UIViewController {
     public var coordinator: GitUserProfileCoordinator?
     private let networkManager = NetworkManager()
     private let bag = DisposeBag()
     let viewModel = GitUserProfileViewModel()
-    private var userModel: GitUserModel?
     
     let user = PublishRelay<GitUserModel>()
     
@@ -26,23 +34,6 @@ class GitUserProfileViewController: UIViewController {
             guard let self else { return }
             self.viewModel.fetchUser(user)
         }).disposed(by: bag)
-        
-        viewModel.userInfo.subscribe( onNext: { [weak self] user in
-            guard let self else { return }
-            DispatchQueue.main.async {
-                self.updateView(with: user)
-                self.userModel = user
-            }
-            self.viewModel.loading.accept(false)
-        })
-        .disposed(by: bag)
-        viewModel.loading.bind(onNext: { [weak self] state in
-            DispatchQueue.main.async { [weak self] in
-                guard let self else { return }
-                self.mainStack.isHidden = state
-            }
-        })
-        .disposed(by: bag)
     }
     
     required init?(coder: NSCoder) {
@@ -51,67 +42,66 @@ class GitUserProfileViewController: UIViewController {
     
     private func updateView(with user: GitUserModel) {
         userProfileView.updateContent(user: user)
-        if let followerCount = user.followers, followerCount > 0 {
-            followingButton.setTitle("Followers (\(followerCount))", for: .normal)
-        }
-        if let followingCount = user.following, followingCount > 0 {
-            followersButton.setTitle("Following (\(followingCount)", for: .normal)
-        }
     }
     
-    private lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .systemBackground
+        view.addSubview(mainStack)
+        view.addSubview(userProfileTableView)
+        userProfileTableView.delegate = self
+        userProfileTableView.dataSource = self
+        userProfileTableView.reloadData()
+        viewModel.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupMainStackConstraints()
+        configureMainStack()
+    }
+    
+    private func setupTableViewConstraints() {
+        NSLayoutConstraint.activate([
+            userProfileTableView.topAnchor.constraint(equalTo: view.topAnchor),
+            userProfileTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            userProfileTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            userProfileTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+    }
+    
+    private func setupMainStackConstraints() {
+        NSLayoutConstraint.activate([
+            mainStack.topAnchor.constraint(equalTo: view.topAnchor),
+            mainStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
+            mainStack.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            mainStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5)
+        ])
+    }
+    private func configureMainStack() {
+        [userProfileView,
+         userProfileTableView
+        ].forEach { mainStack.addArrangedSubview($0) }
+    }
+    
+    private lazy var userProfileTableView: UITableView = {
+        let table = UITableView()
+        table.separatorInset = .init(top: 10, left: 10, bottom: 10, right: 10)
+        table.register(SearchResultsTableCell.self, forCellReuseIdentifier: SearchResultsTableCell.identifier)
+        table.register(ProfileEngagemenTitleSectionView.self, forHeaderFooterViewReuseIdentifier: ProfileEngagemenTitleSectionView.identifier)
+        table.showsVerticalScrollIndicator = false
+        table.translatesAutoresizingMaskIntoConstraints = false
+        return table
     }()
+    
     private lazy var mainStack: UIStackView = {
         let stack = UIStackView()
-        stack.spacing = 20
+        stack.spacing = 0
         stack.distribution = .fill
         stack.axis = .vertical
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        view.addSubview(scrollView)
-        scrollView.addSubview(mainStack)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setupScrollViewConstraints()
-        setupMainStackConstraints()
-        configureMainStack()
-    }
-    
-    func setupScrollViewConstraints() {
-        NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
-    }
-    
-    func setupMainStackConstraints() {
-        NSLayoutConstraint.activate([
-            mainStack.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            mainStack.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 10),
-            mainStack.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            mainStack.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -10),
-            mainStack.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -20)
-        ])
-    }
-    func configureMainStack() {
-        [userProfileView,
-         followButton,
-         followingButton,
-         followersButton
-        ].forEach { mainStack.addArrangedSubview($0) }
-    }
     
     // MARK: - Views
     
@@ -120,61 +110,86 @@ class GitUserProfileViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    // TODO: Style the buttons and add them to the view
-    private lazy var followButton: UIButton = {
-        let button = UIButton()
-        var config = UIButton.Configuration.plain()
-        config.contentInsets = .init(top: 10, leading: 5, bottom: 10, trailing: 5)
-        config.title = "Follow"
-        config.baseForegroundColor = .white
-        config.baseBackgroundColor = .black
-        config.image = UIImage(systemName: "plus")
-        config.imagePadding = 20
-        button.configuration = config
-        button.layer.cornerRadius = 8
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    private lazy var followersButton: UIButton = {
-        let button = UIButton()
-        var config = UIButton.Configuration.plain()
-        config.contentInsets = .init(top: 10, leading: 5, bottom: 10, trailing: 5)
-        config.title = "Followers"
-        config.baseForegroundColor = .white
-        config.baseBackgroundColor = .black
-        config.image = UIImage(systemName: "shared.with.you")
-        config.imagePadding = 20
-        button.configuration = config
-        button.layer.cornerRadius = 8
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(navigateToFollowers), for: .touchUpInside)
-        return button
-    }()
-    private lazy var followingButton: UIButton = {
-        let button = UIButton()
-        var config = UIButton.Configuration.plain()
-        config.contentInsets = .init(top: 10, leading: 5, bottom: 10, trailing: 5)
-        config.title = "Followers"
-        config.baseForegroundColor = .white
-        config.baseBackgroundColor = .black
-        config.image = UIImage(systemName: "shared.with.you")
-        config.imagePadding = 20
-        button.configuration = config
-        button.layer.cornerRadius = 8
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
     // TODO: Arrange these methods
     @objc private func navigateToFollowers() {
         // Get the value from The Relay - Temporary workaround
-        if let userModel {
+        if let userModel = viewModel.userProfileInfo {
             coordinator?.navigateToEngagement(for: userModel, engagement: .followers)
         }
     }
     @objc private func navigateToFollowing() {
-        if let userModel {
+        if let userModel = viewModel.userProfileInfo {
             coordinator?.navigateToEngagement(for: userModel, engagement: .following)
+        }
+    }
+}
+
+extension GitUserProfileViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return viewModel.engagements.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.engagements[section].profiles.count
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProfileEngagemenTitleSectionView.identifier) as? ProfileEngagemenTitleSectionView else { return nil }
+        let engagements = viewModel.engagements[section]
+        view.updateContent(with: engagements.title, count: engagements.profiles.count)
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50.0
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultsTableCell.identifier, for: indexPath) as? SearchResultsTableCell else {
+            let cell = UITableViewCell()
+            cell.textLabel?.text = "Label \(indexPath.section)-\(indexPath.row)"
+            return cell
+        }
+        let user = viewModel.engagements[indexPath.section].profiles[indexPath.row]
+        cell.updatedUser(username: user.login, imageUrl: user.avatarUrl)
+        return cell
+    }
+}
+
+// MARK: - ViewModel Delegate
+extension GitUserProfileViewController: GitUserProfileViewModelDelegate {
+    func reloadEngagementTable() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.userProfileTableView.reloadData()
+        }
+    }
+    func updateUserInfo(_ user: GitUserModel) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            self.userProfileView.updateContent(user: user)
+        }
+    }
+    
+    func updateEngagements(_ sections: [EngagementSection]) {
+        // Not sure why I need
+    }
+    
+    func loadingState(_ state: LoadingState) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+            switch state {
+            case .loading:
+                self.mainStack.isHidden = true
+            case .complete:
+                self.mainStack.isHidden = false
+            case .failed:
+                // Present Error state view
+                break
+            }
         }
     }
 }

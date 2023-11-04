@@ -46,6 +46,7 @@
 		F4C4BAC52AF4F54500FFB4B2 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = F4C4BAC42AF4F54500FFB4B2 /* RxRelay */; };
 		F4C4BAC92AF4F70900FFB4B2 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = F4C4BAC82AF4F70900FFB4B2 /* RxCocoa */; };
 		F4C4BAD22AF564C100FFB4B2 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C4BAD12AF564C000FFB4B2 /* AppConstants.swift */; };
+		F4C4BAD42AF61A9E00FFB4B2 /* ProfileEngagemenTitleSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C4BAD32AF61A9D00FFB4B2 /* ProfileEngagemenTitleSectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +99,7 @@
 		F4C4BABD2AF4C11D00FFB4B2 /* GitUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitUserProfileView.swift; sourceTree = "<group>"; };
 		F4C4BABF2AF4ECAB00FFB4B2 /* GitUser+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GitUser+CoreDataClass.swift"; sourceTree = "<group>"; };
 		F4C4BAD12AF564C000FFB4B2 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		F4C4BAD32AF61A9D00FFB4B2 /* ProfileEngagemenTitleSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEngagemenTitleSectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +225,7 @@
 				F4C4BAA02AF39D9C00FFB4B2 /* GitUserModel.swift */,
 				F4C4BA8C2AF3692D00FFB4B2 /* GitUserProfileCoordinator.swift */,
 				F4C4BA8D2AF3692D00FFB4B2 /* GitUserProfileViewController.swift */,
+				F4C4BAD32AF61A9D00FFB4B2 /* ProfileEngagemenTitleSectionView.swift */,
 				F4C4BA9E2AF394DF00FFB4B2 /* GitUserProfileViewModel.swift */,
 			);
 			path = GitUserProfile;
@@ -406,6 +409,7 @@
 				F4C4BAB62AF3DB6000FFB4B2 /* LocalDataManager.xcdatamodeld in Sources */,
 				F4C4BAA12AF39D9C00FFB4B2 /* GitUserModel.swift in Sources */,
 				F4C4BA9B2AF36AAF00FFB4B2 /* SearchResultsViewController.swift in Sources */,
+				F4C4BAD42AF61A9E00FFB4B2 /* ProfileEngagemenTitleSectionView.swift in Sources */,
 				F47C91912AF0F0CF00F3D587 /* QueryBuilder.swift in Sources */,
 				F4C4BAC12AF4ECAB00FFB4B2 /* GitUser+CoreDataClass.swift in Sources */,
 				F4C4BA9C2AF36AAF00FFB4B2 /* SearchResultsTableCell.swift in Sources */,
