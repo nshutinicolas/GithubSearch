@@ -40,10 +40,6 @@ class GitUserProfileViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func updateView(with user: GitUserModel) {
-        userProfileView.updateContent(user: user)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -122,6 +118,11 @@ class GitUserProfileViewController: UIViewController {
             coordinator?.navigateToEngagement(for: userModel, engagement: .following)
         }
     }
+    private func navigateToEngagement(_ engagement: QueryBuilder.UserPath) {
+        if let userModel = viewModel.userProfileInfo {
+            coordinator?.navigateToEngagement(for: userModel, engagement: engagement)
+        }
+    }
 }
 
 extension GitUserProfileViewController: UITableViewDelegate, UITableViewDataSource {
@@ -137,6 +138,19 @@ extension GitUserProfileViewController: UITableViewDelegate, UITableViewDataSour
         guard let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProfileEngagemenTitleSectionView.identifier) as? ProfileEngagemenTitleSectionView else { return nil }
         let engagements = viewModel.engagements[section]
         view.updateContent(with: engagements.title, count: engagements.profiles.count)
+        // Since I know the sections by heart here. I'll have to hard code this part
+        view.clickAction = { [weak self] in
+            guard let self else { return }
+            switch section {
+            case 0: // Represents Followers
+                self.navigateToEngagement(.followers)
+            case 1: // Represents Followings
+                self.navigateToEngagement(.following)
+            default:
+                // Nothing to show
+                break
+            }
+        }
         return view
     }
     
@@ -156,6 +170,20 @@ extension GitUserProfileViewController: UITableViewDelegate, UITableViewDataSour
         let user = viewModel.engagements[indexPath.section].profiles[indexPath.row]
         cell.updatedUser(username: user.login, imageUrl: user.avatarUrl)
         return cell
+    }
+    
+    // TODO: Implement this method
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Since I know that section 1 is followers and section 2 is following - I'll hard codee this part
+        switch indexPath.section {
+        case 0:
+            break
+        case 1:
+            break
+        default:
+            // Nothing to show
+            break
+        }
     }
 }
 

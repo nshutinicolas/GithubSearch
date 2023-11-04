@@ -224,8 +224,8 @@
 			children = (
 				F4C4BAA02AF39D9C00FFB4B2 /* GitUserModel.swift */,
 				F4C4BA8C2AF3692D00FFB4B2 /* GitUserProfileCoordinator.swift */,
-				F4C4BA8D2AF3692D00FFB4B2 /* GitUserProfileViewController.swift */,
 				F4C4BAD32AF61A9D00FFB4B2 /* ProfileEngagemenTitleSectionView.swift */,
+				F4C4BA8D2AF3692D00FFB4B2 /* GitUserProfileViewController.swift */,
 				F4C4BA9E2AF394DF00FFB4B2 /* GitUserProfileViewModel.swift */,
 			);
 			path = GitUserProfile;

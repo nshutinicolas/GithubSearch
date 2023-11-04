@@ -19,7 +19,7 @@ class EngagementViewController: UIViewController {
     init(with user: GitUserModel, engagement: Engagement) {
         super.init(nibName: nil, bundle: nil)
         viewModel.fetchUsers(for: user.login, engagement: engagement)
-        
+        title = engagement.rawValue.capitalized
     }
     
     required init?(coder: NSCoder) {
@@ -38,7 +38,7 @@ class EngagementViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .secondarySystemBackground.withAlphaComponent(0.8)
+        view.backgroundColor = .systemBackground
         // TODO: Replce with RxSwift
         view.addSubview(usersTableView)
         bindTableViewController()

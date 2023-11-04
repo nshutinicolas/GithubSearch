@@ -9,6 +9,7 @@ import UIKit
 
 class ProfileEngagemenTitleSectionView: UITableViewHeaderFooterView {
     static let identifier = "ProfileEngagemenTitleSectionView"
+    var clickAction: (() -> ())?
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
@@ -56,6 +57,7 @@ class ProfileEngagemenTitleSectionView: UITableViewHeaderFooterView {
         let button = UIButton()
         button.configuration = config
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(openEngagementView), for: .touchUpInside)
         return button
     }()
     
@@ -68,5 +70,8 @@ class ProfileEngagemenTitleSectionView: UITableViewHeaderFooterView {
 //                self.mainView.removeArrangedSubview(viewAllButton)
 //            }
         }
+    }
+    @objc func openEngagementView() {
+        clickAction?()
     }
 }

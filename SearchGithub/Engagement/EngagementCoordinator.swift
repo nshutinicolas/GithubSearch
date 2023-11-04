@@ -11,6 +11,6 @@ class EngagementCoordinator: BaseCoordinator {
     func start(with user: GitUserModel, engegement: QueryBuilder.UserPath) {
         let viewController = EngagementViewController(with: user, engagement: engegement)
         viewController.coordinator = self
-        navigationController.present(viewController, animated: true)
+        navigationController.pushViewController(viewController, animated: true)
     }
 }
