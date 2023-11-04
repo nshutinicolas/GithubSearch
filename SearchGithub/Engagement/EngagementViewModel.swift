@@ -23,7 +23,7 @@ class EngagementViewModel {
                 let gitUsers = try await networkManager.fetch(from: .github,
                                                               path: .users(username: username, path: engagement),
                                                               queries: [
-                                                                .perPage(number: AppConstants.perPageNumber),
+                                                                .perPage(number: 20), // Hardcoding this part for now
                                                                 .page(number: paginationNumber)
                                                               ],
                                                               model: [GitUserModel].self)
