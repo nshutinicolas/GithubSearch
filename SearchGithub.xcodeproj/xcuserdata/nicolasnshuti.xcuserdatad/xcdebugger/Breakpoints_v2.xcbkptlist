@@ -166,14 +166,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "7EF19DBA-9DBA-42F2-802F-F0D16BE31B8D"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchGithub/GitUserProfile/GitUserProfileViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "214"
-            endingLineNumber = "214"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
             landmarkName = "loadingState(_:)"
             landmarkType = "7">
             <Locations>
@@ -229,14 +229,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "4D502AE3-B6E1-47C2-AF99-D47416F3B21E"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchGithub/GitUserProfile/GitUserProfileViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
+            startingLineNumber = "217"
+            endingLineNumber = "217"
             landmarkName = "loadingState(_:)"
             landmarkType = "7">
             <Locations>
@@ -277,34 +277,19 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "8E857B09-9C7D-49F9-95B2-B6539B08F4BF"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchGithub/GitUserProfile/GitUserProfileViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
             landmarkName = "updateUserInfo(_:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "8E857B09-9C7D-49F9-95B2-B6539B08F4BF - d945c1f31d86014c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SearchGithub.GitUserProfileViewController.reloadEngagementTable() -&gt; ()"
-                  moduleName = "SearchGithub"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/nicolasnshuti/Desktop/UIKit/SearchGithub/SearchGithub/GitUserProfile/GitUserProfileViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "201"
-                  endingLineNumber = "201"
-                  offsetFromSymbolStart = "416">
-               </Location>
-               <Location
-                  uuid = "8E857B09-9C7D-49F9-95B2-B6539B08F4BF - 46b86a49f18f30fb"
+                  uuid = "8E857B09-9C7D-49F9-95B2-B6539B08F4BF - 46b86a49f18f3724"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -314,9 +299,39 @@
                   urlString = "file:///Users/nicolasnshuti/Desktop/UIKit/SearchGithub/SearchGithub/GitUserProfile/GitUserProfileViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "201"
-                  endingLineNumber = "201"
+                  startingLineNumber = "202"
+                  endingLineNumber = "202"
+                  offsetFromSymbolStart = "204">
+               </Location>
+               <Location
+                  uuid = "8E857B09-9C7D-49F9-95B2-B6539B08F4BF - 46b86a49f18f3724"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in SearchGithub.GitUserProfileViewController.updateUserInfo(SearchGithub.GitUserModel) -&gt; ()"
+                  moduleName = "SearchGithub"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nicolasnshuti/Desktop/UIKit/SearchGithub/SearchGithub/GitUserProfile/GitUserProfileViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "202"
+                  endingLineNumber = "202"
                   offsetFromSymbolStart = "164">
+               </Location>
+               <Location
+                  uuid = "8E857B09-9C7D-49F9-95B2-B6539B08F4BF - 46b86a49f18f3724"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in SearchGithub.GitUserProfileViewController.updateUserInfo(SearchGithub.GitUserModel) -&gt; ()"
+                  moduleName = "SearchGithub"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nicolasnshuti/Desktop/UIKit/SearchGithub/SearchGithub/GitUserProfile/GitUserProfileViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "202"
+                  endingLineNumber = "202"
+                  offsetFromSymbolStart = "200">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -325,7 +340,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "D3F2A2DA-0F99-4B42-BCBB-4FBC65932FB2"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchGithub/GitUserProfile/GitUserProfileViewModel.swift"
@@ -341,7 +356,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "6E79AD47-AAA1-4149-ABC3-6A4A9C743185"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SearchGithub/GitUserProfile/GitUserProfileViewModel.swift"
@@ -363,10 +378,135 @@
             filePath = "SearchGithub/GitUserProfile/GitUserProfileViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "199"
-            endingLineNumber = "199"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
             landmarkName = "updateUserInfo(_:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0B90A583-583F-4624-8BF7-29D53C789BB3 - 46b86a49f18f309a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in SearchGithub.GitUserProfileViewController.updateUserInfo(SearchGithub.GitUserModel) -&gt; ()"
+                  moduleName = "SearchGithub"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nicolasnshuti/Desktop/UIKit/SearchGithub/SearchGithub/GitUserProfile/GitUserProfileViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "200"
+                  endingLineNumber = "200"
+                  offsetFromSymbolStart = "90">
+               </Location>
+               <Location
+                  uuid = "0B90A583-583F-4624-8BF7-29D53C789BB3 - 87c5b32edd2b242c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SearchGithub.GitUserProfileViewController.updateUserInfo(SearchGithub.GitUserModel) -&gt; ()"
+                  moduleName = "SearchGithub"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nicolasnshuti/Desktop/UIKit/SearchGithub/SearchGithub/GitUserProfile/GitUserProfileViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "200"
+                  endingLineNumber = "200"
+                  offsetFromSymbolStart = "179">
+               </Location>
+               <Location
+                  uuid = "0B90A583-583F-4624-8BF7-29D53C789BB3 - 46b86a49f18f309a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in SearchGithub.GitUserProfileViewController.updateUserInfo(SearchGithub.GitUserModel) -&gt; ()"
+                  moduleName = "SearchGithub"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nicolasnshuti/Desktop/UIKit/SearchGithub/SearchGithub/GitUserProfile/GitUserProfileViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "200"
+                  endingLineNumber = "200"
+                  offsetFromSymbolStart = "74">
+               </Location>
+               <Location
+                  uuid = "0B90A583-583F-4624-8BF7-29D53C789BB3 - 87c5b32edd2b242c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SearchGithub.GitUserProfileViewController.updateUserInfo(SearchGithub.GitUserModel) -&gt; ()"
+                  moduleName = "SearchGithub"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nicolasnshuti/Desktop/UIKit/SearchGithub/SearchGithub/GitUserProfile/GitUserProfileViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "200"
+                  endingLineNumber = "200"
+                  offsetFromSymbolStart = "196">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CB9FD558-ECC0-47FA-AAEA-EDD882D60C13"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SearchGithub/GitUserProfile/GitUserProfileViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
+            landmarkName = "updateUserInfo(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "CB9FD558-ECC0-47FA-AAEA-EDD882D60C13 - 46b86a49f18f30fb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in SearchGithub.GitUserProfileViewController.updateUserInfo(SearchGithub.GitUserModel) -&gt; ()"
+                  moduleName = "SearchGithub"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nicolasnshuti/Desktop/UIKit/SearchGithub/SearchGithub/GitUserProfile/GitUserProfileViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "201"
+                  endingLineNumber = "201"
+                  offsetFromSymbolStart = "164">
+               </Location>
+               <Location
+                  uuid = "CB9FD558-ECC0-47FA-AAEA-EDD882D60C13 - 46b86a49f18f30fb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in SearchGithub.GitUserProfileViewController.updateUserInfo(SearchGithub.GitUserModel) -&gt; ()"
+                  moduleName = "SearchGithub"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nicolasnshuti/Desktop/UIKit/SearchGithub/SearchGithub/GitUserProfile/GitUserProfileViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "201"
+                  endingLineNumber = "201"
+                  offsetFromSymbolStart = "90">
+               </Location>
+               <Location
+                  uuid = "CB9FD558-ECC0-47FA-AAEA-EDD882D60C13 - 46b86a49f18f30fb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in SearchGithub.GitUserProfileViewController.updateUserInfo(SearchGithub.GitUserModel) -&gt; ()"
+                  moduleName = "SearchGithub"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nicolasnshuti/Desktop/UIKit/SearchGithub/SearchGithub/GitUserProfile/GitUserProfileViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "201"
+                  endingLineNumber = "201"
+                  offsetFromSymbolStart = "108">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

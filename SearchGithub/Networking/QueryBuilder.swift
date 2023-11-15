@@ -26,7 +26,7 @@ public struct QueryBuilder {
             }
         }
     }
-    public enum Path {
+    public enum Path: Equatable {
         case search
         case users(username: String, path: UserPath? = nil)
         
@@ -72,6 +72,11 @@ public struct QueryBuilder {
     
     public func url(from baseUrl: BaseUrl, path: Path? = nil, queries: [QueryItem] = []) -> URL? {
         var queryItems: [URLQueryItem] = []
+        /**
+         * For user path, q is not supposed to be appended to the queryItems(although it causes no harm)
+         * For better/accurate structure, it should be ignored
+         * To be implemented
+         */
         queries.forEach { queryItems.append(URLQueryItem(name: $0.key, value: $0.value)) }
         
         var urlComponents = URLComponents(string: baseUrl.urlString)

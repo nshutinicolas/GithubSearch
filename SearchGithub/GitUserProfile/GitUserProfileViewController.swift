@@ -14,7 +14,7 @@ import RxCocoa
  * The initializeer is quite weird. Fix it
  * Some logic should go to the view model - For testing purposes
  * A lot of mess - Declutter this VC
- * Reeactiveness is .zero - Fix that part
+ * Reactiveness is .zero - Fix that part
  * make the VC reactive fully and abort delegates
  */
 
@@ -33,6 +33,7 @@ class GitUserProfileViewController: UIViewController {
         self.user.subscribe(onNext: { [weak self] user in
             guard let self else { return }
             self.viewModel.fetchUser(user)
+            self.userProfileView.updateContent(user: user)
         }).disposed(by: bag)
     }
     

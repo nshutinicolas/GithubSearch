@@ -115,6 +115,8 @@ class GitUserProfileView: UIView {
         label.font = .systemFont(ofSize: 16, weight: .medium)
         label.textColor = .secondaryLabel
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.lineBreakMode = .byTruncatingTail
+        label.numberOfLines = 2
         return label
     }()
     

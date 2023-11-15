@@ -29,7 +29,7 @@ protocol GitUserProfileViewModelDelegate {
 
 class GitUserProfileViewModel {
     private let networkManager = NetworkManager()
-    private let coreDataManager = CoreDataManager.shared
+    private let gitUserManager = GitUserManager()
     
     var userProfileInfo: GitUserModel?
     var engagements = [EngagementSection]()
@@ -44,7 +44,7 @@ class GitUserProfileViewModel {
         Task {
         // TODO: Query LocalStorage first - available load that else load remote content
             do {
-                let storedUser = try coreDataManager.fetchUser(with: "login", value: user.login)
+                let storedUser = try gitUserManager.fetchUser(with: "login", value: user.login)
                 if let storedUser {
                     userProfileInfo = storedUser
                     delegate?.updateUserInfo(storedUser)
@@ -87,6 +87,6 @@ class GitUserProfileViewModel {
     }
     
     func saveGitUserLocally(_ user: GitUserModel) {
-        coreDataManager.saveGitUser(user)
+        gitUserManager.addUser(user)
     }
 }

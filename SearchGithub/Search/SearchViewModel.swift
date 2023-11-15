@@ -9,13 +9,8 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-// Temporary implementation
-protocol SearchViewModelDelegate {
-    func updateSearchResults(_ results: [GitUserModel])
-}
-
 class SearchViewModel {
-    private let coreDataManager = CoreDataManager.shared
+    private let gitUserManager = GitUserManager()
     
     let storedUsersRelay = BehaviorRelay<[GitUserModel]>(value: [])
     var storedUsersModel: [GitUserModel] = []
@@ -25,7 +20,7 @@ class SearchViewModel {
     
     func fetchStoredUsers() {
         // TODO: Review if there is need to handle this error!!???
-        let users = try? coreDataManager.fetchUsers()
+        let users = try? gitUserManager.fetchAllSavedUsers()
         guard let users else { return }
         storedUsersRelay.accept(users)
         storedUsersModel = users

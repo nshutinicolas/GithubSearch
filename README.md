@@ -43,8 +43,6 @@ End points used:
 
 ### Unit tests
 
-> 🚨 No unit test yet. Still resolving "Missing required module 'RxCocoaRuntime'" error in RxSwift. Possible solution is to use Cocoapods inplace of SPM but not sure yet.
-
 In this Project, I adopted the `TDD(Test Driven Development)` method and testing is much more important going forward with this project.
 
 All viewModels were written to make them easily testable.

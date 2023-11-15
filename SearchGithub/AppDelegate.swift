@@ -34,6 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 private extension AppDelegate {
     func setupCoreData() {
         let coreData = CoreDataManager.shared
+        // TODO: Load different stores
+        // Unit tests use in memory store this initializes the persistent memory
+        // Fix: Use a flag or conditional check to initialise the correct store
         coreData.loadStore()
     }
 }

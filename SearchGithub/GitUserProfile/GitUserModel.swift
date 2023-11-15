@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct GitUserModel: Identifiable, Decodable {
-    let id: Int
+public struct GitUserModel: Identifiable, Decodable {
+    public let id: Int
     let name: String?
     let login: String
     let bio: String?
@@ -24,7 +24,7 @@ struct GitUserModel: Identifiable, Decodable {
     let location: String?
 }
 
-struct GitResponse: Decodable {
+public struct GitResponse: Decodable {
     let totalCount: Int
     let incompleteResults: Bool
     let items: [GitUserModel]
